@@ -27,7 +27,7 @@
    },
    methods: {
        update(){
-           return axios.get('/projeto/datatable').then( (response) => {
+           return axios.get('/projetos/datatable').then( (response) => {
                this.data = response.data;
            });
        }

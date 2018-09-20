@@ -1,4 +1,5 @@
 
+
 @extends('adminlte::page')
 
 
@@ -13,10 +14,12 @@
     {{--@parent--}}
 {{--@endsection--}}
 
-@push('css')
-    @parent
-    <style rel="stylesheet" href="{{asset('css/app.css')}}"></style>
 
+
+@push('css')
+    {{--@parent--}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style rel="stylesheet" href="{{asset('css/app.css')}}"></style>
 @endpush
 
 @section('content')
@@ -26,6 +29,9 @@
 @stop
 
 @push('js')
-    @parent
+
+    {{--@parent--}}
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+
+
 @endpush

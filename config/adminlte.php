@@ -127,7 +127,14 @@ return [
         ],
         [
             'text'        => 'Projetos',
-            'url'         => 'projeto',
+            'url'         => 'projetos',
+            'icon'        => 'cubes',
+            //'label'       => 4,
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Anotações',
+            'url'         => 'anotacoes',
             'icon'        => 'file',
             //'label'       => 4,
             'label_color' => 'success',

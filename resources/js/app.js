@@ -21,8 +21,9 @@ Vue.use(Datatable);
 
 require("mock-data");
 
-
-Vue.component('grid', require('./components/grid.vue'));
+Vue.component('grid-projetos', require('./components/projetos/grid-projetos.vue'));
+Vue.component('grid-anotacoes', require('./components/anotacoes/grid-anotacoes.vue'));
+Vue.component('app-select', require('./components/selects/app-select.vue'));
 
 const app = new Vue({
     el: '#app'

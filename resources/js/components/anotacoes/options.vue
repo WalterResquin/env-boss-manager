@@ -3,7 +3,7 @@
         <button class="btn btn-default" title="Edit" @click="edit">
             <i class="fa fa-pencil"></i>
         </button>
-        <button class="btn btn-default" title="Delete "@click="del" >
+        <button class="btn btn-default" title="Delete"  @click="del" >
             <i class="fa fa-trash"></i>
         </button>
     </div>
@@ -28,12 +28,15 @@
         // },
 
         methods: {
-            edit: function() {
-                window.location = `projeto/editar/${this.row.id}`;
+            edit() {
+                window.location = `/anotacoes/editar/${this.row.id}`;
             },
 
-            del: function(){
-                console.log('teste');
+            del(){
+                var id = this.row.id;
+                axios.post('/anotacoes/deletar', {id: id}).then( () => {
+                    window.location.reload()
+                });
             }
         }
     }

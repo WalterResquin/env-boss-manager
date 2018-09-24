@@ -1,34 +1,32 @@
 <template>
     <select v-model="sel" class="form-control" id="projeto" name="titulo" type="text">
-        <!--<option disabled value="">Selecione</option>-->
         <option v-for="option in options" v-bind:value="option.id">
-            {{ option.titulo }}
+            {{ option.titulo}}
         </option>
-
     </select>
 </template>
 
 <script>
     export default {
-        props: [ 'list', 'selected'],
+        props: [ 'list', 'value'],
         data(){
             return (
                 {
-                    sel: '2',
-                    options: this.list
+                    sel: '',
+                    options: JSON.parse(this.list)
                 }
             )
         },
 
-        // watch: {
-        //     sel:function(val) {
-        //         this.$emit('selected', val);
-        //     }
-        // },
-
         mounted() {
+            console.log(this.value);
+            this.options.unshift({"id":"","titulo":"Selecione"});
 
-
+            if(this.value !== null && this.value !== undefined)
+            {
+                console.log(this.value);
+                this.sel = this.value;
+            }
         },
     }
 </script>

@@ -26,7 +26,7 @@
             <div class="box box-danger">
                 <div class="box-header with-border">
                     <a href="{{route('projetos.novo')}}" class="btn btn-success" role="button">
-                        Novo
+                        Novo Projeto
                     </a>
                 </div>
                 <div class="box-body">

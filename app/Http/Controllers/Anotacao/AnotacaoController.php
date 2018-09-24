@@ -19,9 +19,6 @@ class AnotacaoController extends Controller
 {
     public function index()
     {
-        //dd(Anotacao::all()->map(function ($anotacao){ return $anotacao->projeto(); }));
-
-        //dd(Anotacao::with('projeto')->get());
         return view('website.anotacao.index');
     }
 
@@ -71,8 +68,6 @@ class AnotacaoController extends Controller
         //dd($anotacao);
 
         $anotacao->fill($request->all());
-
-        $anotacao->projeto_id = 1;
 
         $anotacao->saveOrFail();
 

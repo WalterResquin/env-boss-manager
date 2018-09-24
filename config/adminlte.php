@@ -139,17 +139,24 @@ return [
             //'label'       => 4,
             'label_color' => 'success',
         ],
-        'Configurações da conta',
         [
-            'text' => 'Perfil',
-            'url'  => 'admin/settings',
-            'icon' => 'user',
+            'text'        => 'Configurações',
+            'url'         => 'configuracoes',
+            'icon'        => 'file-code-o',
+            //'label'       => 4,
+            'label_color' => 'success',
         ],
-        [
-            'text' => 'Mudar Senha',
-            'url'  => 'admin/settings',
-            'icon' => 'lock',
-        ],
+//        'Configurações da conta',
+//        [
+//            'text' => 'Perfil',
+//            'url'  => 'admin/settings',
+//            'icon' => 'user',
+//        ],
+//        [
+//            'text' => 'Mudar Senha',
+//            'url'  => 'admin/settings',
+//            'icon' => 'lock',
+//        ],
         /*[
             'text'    => 'Multilevel',
             'icon'    => 'share',

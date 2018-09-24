@@ -24,6 +24,7 @@ require("mock-data");
 Vue.component('grid-projetos', require('./components/projetos/grid-projetos.vue'));
 Vue.component('grid-anotacoes', require('./components/anotacoes/grid-anotacoes.vue'));
 Vue.component('app-select', require('./components/selects/app-select.vue'));
+Vue.component('grid-configuracoes', require('./components/configuracoes/grid-configuracoes.vue'));
 
 const app = new Vue({
     el: '#app'

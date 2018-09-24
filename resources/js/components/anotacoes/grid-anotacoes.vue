@@ -29,7 +29,11 @@
    methods: {
        update(){
            return axios.get('/anotacoes/datatable').then( (response) => {
-               this.data = response.data;
+               this.data = JSON.parse(JSON.stringify(response.data));
+
+               Object.keys(this.data).map((anotacao) => {
+                    this.data[anotacao].projeto = this.data[anotacao].projeto.titulo;
+               })
            });
        }
    },

@@ -1,27 +1,24 @@
 @extends('website.layout.master')
 
-@section('title', 'Anotações')
+@section('title', 'Configurações')
 
 @section('content_header')
-    <h1><i class="fa fa-file "></i> Anotações</h1>
+    <h1><i class="fa fa-file "></i> Configurações</h1>
 
 @stop
 
 @section('content-app')
 
-    <div id="face" value=""> </div>
     <div class="row">
         <div class="col-lg-10">
             <div class="box box-danger">
                 <div class="box-header with-border">
-                    <a href="{{route('anotacoes.novo')}}" class="btn btn-success" role="button">
-                        Nova Anotação
+                    <a href="{{route('configuracoes.novo')}}" class="btn btn-success" role="button">
+                        Nova Configuração
                     </a>
                 </div>
                 <div class="box-body">
-
-                    <grid-anotacoes></grid-anotacoes>
-
+                    <grid-configuracoes></grid-configuracoes>
                 </div>
             </div>
         </div>

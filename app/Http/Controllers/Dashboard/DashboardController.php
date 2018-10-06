@@ -13,16 +13,30 @@ use App\Domain\Anotacao\Anotacao;
 use App\Domain\Configuracao\Configuracao;
 use App\Domain\Projeto\Projeto;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index(){
 
-        $quant_proj = Projeto::count();
-        $quant_anota = Anotacao::count();
-        $quant_conf = Configuracao::count();
+        $projetos_cont = Auth::user()->projetos()->get();
 
-        $projetos = Projeto::with('configuracoes')->with('anotacoes')->get();
+        $quant_anota = 0;
+        $quant_conf = 0;
+
+        foreach ($projetos_cont as $projeto)
+        {
+            $quant_anota+= $projeto->anotacoes->count();
+            $quant_conf+= $projeto->configuracoes->count();
+
+        }
+
+
+        $quant_proj = Auth::user()->projetos()->count();
+
+
+        $projetos = Auth::user()->projetos()->get();
+
 
         return view("website.dashboard.index")->with(['quant_proj' => $quant_proj,
                                                             'quant_anota' => $quant_anota,

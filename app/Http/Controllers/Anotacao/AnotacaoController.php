@@ -14,29 +14,41 @@ use App\Domain\Projeto\Projeto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SalvarAnotacaoRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class AnotacaoController extends Controller
 {
     public function index()
     {
+
         return view('website.anotacao.index');
     }
 
     public function dataTable()
     {
-        $query = Anotacao::with('projeto');
+        $anotacoesResponse = [];
 
-//        if($response !== null )
-//            $query->where('titulo','like', $response);
+        $projetos = Auth::user()->projetos()->get();
 
+        $anotacoesPorProjeto = $projetos->map(function ($projeto){
+            return $projeto->anotacoes()->get();
+        });
 
-        return response()->json($query->get()->map(function ($anotacao){return $anotacao->toArray();}));
-        //return response($query->get());
+        foreach ($anotacoesPorProjeto as $anotacoes)
+        {
+            foreach ($anotacoes as $anotacao)
+            {
+                array_push($anotacoesResponse, $anotacao);
+            }
+        }
+
+        return response()->json($anotacoesResponse);
     }
 
     public function novo()
     {
-        $projetos = Projeto::all();
+        $projetos = Auth::user()->projetos()->get();
 
         return view('website.anotacao.form')->with(['projetos' => $projetos]);
     }
@@ -44,7 +56,7 @@ class AnotacaoController extends Controller
     public function edtar(Request $request)
     {
         $id = $request->id;
-        $anotacao = Anotacao::find($id);
+        $anotacao = Auth::user()->projetos()->get();
 
         $projetos = Projeto::all();
 

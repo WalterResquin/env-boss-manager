@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SalvarProjetoRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjetoController extends Controller
 {
@@ -25,7 +26,7 @@ class ProjetoController extends Controller
 
     public function dataTable()
     {
-        return response(Projeto::all());
+        return response(Auth::user()->projetos()->get());
     }
 
     public function novo()
@@ -43,6 +44,8 @@ class ProjetoController extends Controller
 
     public function salvar(SalvarProjetoRequest $request)
     {
+        $user = Auth::user();
+
         if($request->id){
             $projeto = Projeto::find($request->id)->first();
         }
@@ -53,8 +56,11 @@ class ProjetoController extends Controller
             if($projeto == null)
                 $projeto = new Projeto();
         }
+
         $projeto->fill($request->all());
-        $projeto->saveOrFail();
+
+        $projeto->save();
+        $projeto->users()->save($user);
 
         return view('website.projeto.index');
     }

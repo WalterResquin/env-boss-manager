@@ -10,6 +10,8 @@ namespace App\Domain\Anotacao;
 
 
 use App\Domain\Projeto\Projeto;
+use App\Domain\ProjetoUser\ProjetoUser;
+use App\Domain\User\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Anotacao extends Model

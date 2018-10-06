@@ -11,11 +11,11 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = new \App\User();
+        $user = new \App\Domain\User\User();
         $user->fill([
-            'name' => 'adm',
-            'email' => 'dev@webeleven.com.br',
-            'password' => \Illuminate\Support\Facades\Hash::make('Web11')
+            'name' => 'Admin',
+            'email' => 'admin@jonworks.com.br',
+            'password' => \Illuminate\Support\Facades\Hash::make('admin')
         ]);
         $user->save();
     }

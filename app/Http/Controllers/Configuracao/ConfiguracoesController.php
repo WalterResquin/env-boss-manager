@@ -14,6 +14,7 @@ use App\Domain\Projeto\Projeto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SalvarConfiguracaoRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ConfiguracoesController extends Controller
 {
@@ -25,18 +26,29 @@ class ConfiguracoesController extends Controller
 
     public function dataTable()
     {
-        $query = Configuracao::with('projeto');
 
-//        if($response !== null )
-//            $query->where('titulo','like', $response);
+        $configuracoesResponse = [];
 
+        $projetos = Auth::user()->projetos()->get();
 
-        return response()->json($query->get()->map(function ($configuracao){return $configuracao->toArray();}));
+        $configuracaoPorProjeto = $projetos->map(function ($projeto){
+            return $projeto->configuracoes()->get();
+        });
+
+        foreach ($configuracaoPorProjeto as $configuracoes)
+        {
+            foreach ($configuracoes as $configuracao)
+            {
+                array_push($configuracoesResponse, $configuracao);
+            }
+        }
+
+        return response()->json($configuracoesResponse);
     }
 
     public function novo()
     {
-        $projetos = Projeto::all();
+        $projetos = Auth::user()->projetos()->get();
 
         return view('website.configuracao.form')->with(['projetos' => $projetos]);
     }
@@ -46,17 +58,17 @@ class ConfiguracoesController extends Controller
         $id = $request->id;
         $configuracao = Configuracao::find($id);
 
-        $projetos = Projeto::all();
+        $projetos = Auth::user()->projetos()->get();
 
         return view('website.configuracao.form')->with(['projetos' => $projetos, 'configuracao' => $configuracao]);
     }
 
-    public function salvar(SalvarConfiguracaoRequest $request)
+    public function salvar(Request $request)
     {
-        $file = $request->file('midia');
-
-        $tempName = $file->getPathname();
-        $name = $file->getClientOriginalName();
+//        $file = $request->file('midia');
+//
+//        $tempName = $file->getPathname();
+//        $name = $file->getClientOriginalName();
 
 
 

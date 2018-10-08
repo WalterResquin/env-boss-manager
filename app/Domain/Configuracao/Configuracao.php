@@ -9,6 +9,7 @@
 namespace App\Domain\Configuracao;
 
 
+use App\Domain\Arquivo\Arquivo;
 use App\Domain\Projeto\Projeto;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,5 +24,10 @@ class Configuracao extends Model
     public function projeto()
     {
         return $this->belongsTo(Projeto::class, 'projeto_id', 'id');
+    }
+
+    public function arquivos()
+    {
+        return $this->belongsToMany(Arquivo::class, 'arquivo_configuracao', 'configuracao_id');
     }
 }

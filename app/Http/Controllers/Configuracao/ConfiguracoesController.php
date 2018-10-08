@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Configuracao;
 
 
+use App\Domain\Arquivo\Arquivo;
 use App\Domain\Configuracao\Configuracao;
 use App\Domain\Projeto\Projeto;
 use App\Http\Controllers\Controller;
@@ -65,12 +66,26 @@ class ConfiguracoesController extends Controller
 
     public function salvar(Request $request)
     {
-//        $file = $request->file('midia');
-//
-//        $tempName = $file->getPathname();
-//        $name = $file->getClientOriginalName();
+        $file = $request->file('midia');
 
+        if($file)
+        {
+            $tempName = $file->getPathname();
+            $name = $file->getClientOriginalName();
+            $type = $file->getType();
+            $info = $file->getFileInfo();
 
+            $arquivo = file_get_contents($tempName);
+            $arquivoBase64 = base64_encode($arquivo);
+
+            $arquivo = new Arquivo();
+            $arquivo->nome = $name;
+            $arquivo->arquivo = $arquivoBase64;
+            $arquivo->tipo = $type;
+            $arquivo->info = $info;
+
+            $arquivo->save();
+        }
 
         if($request->id){
             $configuracao = Configuracao::find($request->id)->first();
@@ -82,8 +97,12 @@ class ConfiguracoesController extends Controller
             if($configuracao == null)
                 $configuracao = new Configuracao();
         }
+
         $configuracao->fill($request->all());
         $configuracao->save();
+
+        if($arquivo)
+            $configuracao->arquivos()->save($arquivo);
 
         return view('website.configuracao.index');
     }

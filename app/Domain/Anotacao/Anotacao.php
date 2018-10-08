@@ -9,6 +9,7 @@
 namespace App\Domain\Anotacao;
 
 
+use App\Domain\Arquivo\Arquivo;
 use App\Domain\Projeto\Projeto;
 use App\Domain\ProjetoUser\ProjetoUser;
 use App\Domain\User\User;
@@ -25,5 +26,10 @@ class Anotacao extends Model
     public function projeto()
     {
         return $this->belongsTo(Projeto::class, 'projeto_id', 'id');
+    }
+
+    public function arquivos()
+    {
+        return $this->belongsToMany(Arquivo::class, 'arquivo_anotacao', 'arquivo_id');
     }
 }

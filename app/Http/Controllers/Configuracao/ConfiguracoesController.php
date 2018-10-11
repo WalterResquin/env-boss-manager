@@ -15,6 +15,7 @@ use App\Domain\Projeto\Projeto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SalvarConfiguracaoRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class ConfiguracoesController extends Controller
@@ -114,6 +115,22 @@ class ConfiguracoesController extends Controller
         $configuracao->delete();
 
         return view('website.configuracao.index');
+    }
+
+    public function download (Request $request)
+    {
+        $id = $request->id;
+
+        $file = Arquivo::findOrFail($id);
+        $file_contents = base64_decode($file->arquivo);
+
+        return response($file_contents)
+            ->header('Cache-Control', 'no-cache private')
+            ->header('Content-Description', 'File Transfer')
+//            ->header('Content-Type', $file->tipo)
+            ->header('Content-length', strlen($file->arquivo))
+            ->header('Content-Disposition', 'attachment; filename=' . $file->nome)
+            ->header('Content-Transfer-Encoding', 'binary');
     }
 
 }

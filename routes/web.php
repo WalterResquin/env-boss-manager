@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function (){
         Route::get('/editar/{id}', 'AnotacaoController@edtar')->name('editar');
         Route::post('/salvar', 'AnotacaoController@salvar')->name('salvar');
         Route::post('/deletar', 'AnotacaoController@deletar')->name('deletar');
+        Route::get('/download/{id}', 'AnotacaoController@download')->name('download');
     });
 
     Route::prefix('/configuracoes')->as('configuracoes.')->namespace('Configuracao')->group(function (){
@@ -37,6 +38,7 @@ Route::middleware('auth')->group(function (){
         Route::get('/editar/{id}', 'ConfiguracoesController@edtar')->name('editar');
         Route::post('/salvar', 'ConfiguracoesController@salvar')->name('salvar');
         Route::post('/deletar', 'ConfiguracoesController@deletar')->name('deletar');
+        Route::get('/download/{id}', 'ConfiguracoesController@download')->name('download');
     });
 });
 

@@ -78,9 +78,15 @@
                                         @if(count($projeto->configuracoes))
                                             <h5>Configs:</h5>
                                             @foreach( $projeto->configuracoes as $configuracoes)
+
                                                 <p title="{{$configuracoes->descricao}}">*
-                                                    <a href="{{route('configuracoes.editar',['id' => $configuracoes->id])}}">{{$configuracoes->titulo}}</a>
+                                                    <a href="{{route('configuracoes.editar',['id' => $configuracoes->id])}}">{{$configuracoes->titulo}} </a>
                                                 </p>
+                                                    @if($configuracoes->arquivos())
+                                                        @foreach($configuracoes->arquivos()->get() as $arquivo)
+                                                            <a href="{{route('configuracoes.download', ['id' => $arquivo->id])}}"><small class="label bg-aqua-active"><i class="fa fa-paperclip "></i> Anexo: {{$arquivo->nome}} </small></a>
+                                                        @endforeach
+                                                    @endif
                                             @endforeach
                                         @endif
 

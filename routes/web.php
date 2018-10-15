@@ -38,7 +38,8 @@ Route::middleware('auth')->group(function (){
         Route::get('/editar/{id}', 'ConfiguracoesController@edtar')->name('editar');
         Route::post('/salvar', 'ConfiguracoesController@salvar')->name('salvar');
         Route::post('/deletar', 'ConfiguracoesController@deletar')->name('deletar');
-        Route::get('/download/{id}', 'ConfiguracoesController@download')->name('download');
+        Route::get('/download/{id}', 'ConfiguracoesController@download')->name('download.anexo');
+        Route::get('/anexo/deletar', 'ConfiguracoesController@deletarAnexo')->name('anexo.deletar');
     });
 });
 

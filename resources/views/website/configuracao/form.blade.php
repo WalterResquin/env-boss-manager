@@ -47,12 +47,20 @@
                         </div>
                         <div class="form-group">
                             <label for="midia">Arquivo</label>
-                            <input id="midia" name="midia" type="file">
-                            {{--<p class="help-block">Add aquivo</p>--}}
+                            <input id="midia" name="midia" type="file" multiple>
                         </div>
+
                         <div class="form-group">
                             <button type="submit"
                                     class="btn btn-default pull-right">{{ isset($configuracao) ? "Atualizar" : "Registrar" }}</button>
+                        </div>
+                        <div class="form-group">
+                            @if(isset($configuracao->arquivos))
+                                    @foreach($configuracao->arquivos as $arquivo)
+                                        <a href="{{route('configuracoes.download.anexo', ['id' => $arquivo->id])}}"><small class="label bg-aqua-active"><i class="fa fa-paperclip "></i> Anexo: {{$arquivo->nome}}</small></a><a href="{{route('configuracoes.anexo.deletar', [ 'id' => $arquivo->id ])}}"> x</a>
+                                    @endforeach
+                                </farm>
+                            @endif
                         </div>
                     </form>
                 </div>
@@ -60,5 +68,3 @@
         </div>
     </div>
 @stop
-
-@

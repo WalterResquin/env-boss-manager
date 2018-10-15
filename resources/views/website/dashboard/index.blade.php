@@ -84,7 +84,7 @@
                                                 </p>
                                                     @if($configuracoes->arquivos())
                                                         @foreach($configuracoes->arquivos()->get() as $arquivo)
-                                                            <a href="{{route('configuracoes.download', ['id' => $arquivo->id])}}"><small class="label bg-aqua-active"><i class="fa fa-paperclip "></i> Anexo: {{$arquivo->nome}} </small></a>
+                                                            <a href="{{route('configuracoes.download.anexo', ['id' => $arquivo->id])}}"><small class="label bg-aqua-active"><i class="fa fa-paperclip "></i> Anexo: {{$arquivo->nome}} </small></a>
                                                         @endforeach
                                                     @endif
                                             @endforeach

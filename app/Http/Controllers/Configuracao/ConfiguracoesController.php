@@ -68,7 +68,6 @@ class ConfiguracoesController extends Controller
     public function salvar(Request $request)
     {
         $file = $request->file('midia');
-
         if($file)
         {
             $tempName = $file->getPathname();
@@ -86,25 +85,24 @@ class ConfiguracoesController extends Controller
             $arquivo->info = $info;
 
             $arquivo->save();
+            $arquivoSalvo = true;
         }
 
-        if($request->id){
+        if($request->id != null){
             $configuracao = Configuracao::find($request->id)->first();
+            $configuracao->fill($request->all());
+            $configuracao->update();
         }
-        else {
-            $array = ['titulo' => $request->titulo, 'configuracao' => $request->descricao];
-
-            $configuracao= Configuracao::find($array)->first();
-            if($configuracao == null)
-                $configuracao = new Configuracao();
+        else{
+            $configuracao = new Configuracao();
+            $configuracao->fill($request->all());
+            $configuracao->save();
         }
 
-        $configuracao->fill($request->all());
-        $configuracao->save();
 
-        if($arquivo)
+        if(isset($arquivoSalvo))
             $configuracao->arquivos()->save($arquivo);
-
+        
         return view('website.configuracao.index');
     }
 
@@ -131,6 +129,15 @@ class ConfiguracoesController extends Controller
             ->header('Content-length', strlen($file->arquivo))
             ->header('Content-Disposition', 'attachment; filename=' . $file->nome)
             ->header('Content-Transfer-Encoding', 'binary');
+    }
+
+    public function deletarAnexo(Request $request)
+    {
+        $id = $request["id"];
+        $arquivo = Arquivo::find($id);
+        $arquivo->delete();
+
+        return back()->withInput();
     }
 
 }
